@@ -1,0 +1,94 @@
+
+
+<div class="card" >
+    <div class="card-header">
+        <b>Formulario dar de alta producto</b>
+    </div>
+    <div class="card-body">
+        <form  [formGroup]="profileForm"  (ngSubmit)="saveProducto()">
+            <div class="row">
+
+                <div class="col-6">
+                    <label for="first-name">Nombre del producto: </label>
+                    <input 
+                    id="first-name" 
+                    type="text" 
+                    class="form-control" 
+                    formControlName="nombreProduto">
+
+                    <div
+                    *ngIf="profileForm.controls['nombreProduto'].invalid 
+                    && (profileForm.controls['nombreProduto'].dirty || profileForm.controls['nombreProduto'].touched)"
+                    class="alert alert-danger"
+                  >
+                    <div *ngIf="profileForm.controls['nombreProduto'].errors?.['required']">El nombre del producto es requerido.</div>
+                    <div *ngIf="profileForm.controls['nombreProduto'].errors?.['minlength']">
+                      El nombre del producto debera contener al menos 6 caracteres
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                    <label for="first-name">Precio del producto: </label>
+                    <input 
+                    id="first-name" 
+                    type="text" 
+                    class="form-control" 
+                    formControlName="precioProducto">
+                    
+                    <div
+                    *ngIf="profileForm.controls['precioProducto'].invalid 
+                    && (profileForm.controls['precioProducto'].dirty || profileForm.controls['precioProducto'].touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="profileForm.controls['precioProducto'].errors?.['required']">
+                        El precio del producto es requerido.
+                    </div>
+                    <div *ngIf="this.profileForm.get('precioProducto')?.errors?.['soloNumeros']">
+                        Solo ingrese numeros
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                
+                <div class="col-6">
+                    <div *ngIf="!files.length" class="col-12 rmpm dropzone" appDrag (files)="filesDropped($event)">
+                        <div class="text-wrapper">
+                            <div class="centered">Drop your file here!</div>
+                        </div>
+                    </div>
+                    <!--droped image preview-->
+                    <div *ngFor="let file of files">
+                      <img *ngIf="file" [src]="file.url" width="100px" height="100px">
+                    </div>
+                    
+                    <button type="button" (click)="upload()">Upload Image</button>
+
+                    <div
+                    *ngIf="profileForm.controls['nombreProduto'].invalid 
+                    && (profileForm.controls['nombreProduto'].dirty || profileForm.controls['nombreProduto'].touched)"
+                    class="alert alert-danger"
+                  >
+                    <div *ngIf="profileForm.controls['nombreProduto'].errors?.['required']">El nombre del producto es requerido.</div>
+                    <div *ngIf="profileForm.controls['nombreProduto'].errors?.['minlength']">
+                      El nombre del producto debera contener al menos 6 caracteres
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-12 ">
+                    <button type="submit" class="btn btn-success col-4 " [disabled]="!profileForm.valid">Submit</button>
+                </div>
+            </div>
+     
+
+          
+          </form>
+    </div>
+  </div>
